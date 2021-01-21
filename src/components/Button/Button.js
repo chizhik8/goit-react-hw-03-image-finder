@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Button() {
     return (
-        <div>
-            
+        <div className="ButtonContainer">
+            <button type='button' className="Button">Load more</button>
         </div>
     )
 }

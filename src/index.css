@@ -126,8 +126,8 @@ img {
   max-width: calc(100vw - 48px);
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 16px;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 0;
   list-style: none;
   margin-left: auto;
@@ -180,7 +180,13 @@ img {
 /*
 * Стили компонента Buton (Load more)
 */
+.ButtonContainer {
+  margin: 0px auto;
+  max-width: min-content;
+}
+
 .Button {
+  margin-bottom: 10px;
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
@@ -204,6 +210,7 @@ img {
 .Button:hover,
 .Button:focus {
   background-color: #303f9f;
+  outline: none;
 }
 
 /* Стили для Loader */
