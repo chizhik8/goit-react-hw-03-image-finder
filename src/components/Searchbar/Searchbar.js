@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import '../../index.css'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 export class Searchbar extends Component {
-  // static propTypes = {}
+  static propTypes = {
+    query: PropTypes.string,
+  }
 
   state = { query: ''}
   
@@ -14,7 +16,8 @@ export class Searchbar extends Component {
 
   handleSubmit = e => { 
     e.preventDefault();
-    this.props.onSubmit(this.state.query)
+    this.props.onSubmit(this.state.query);
+    this.setState({query: ''});
   }
 
   render() {
