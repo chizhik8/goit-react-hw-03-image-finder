@@ -6,11 +6,9 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
 
 import imagesApi  from './services/imagesApi';
+import Modal from './components/Modal/Modal';
 
 export class App extends Component {
-  // static defaultProps = { query: 'cow'}
-  // static defaultProps = { query: 'cow'}
-
 
   state = {
     images: [],
@@ -18,6 +16,7 @@ export class App extends Component {
     error: null,
     searchQuery: '',
     page: 1,
+    largeImageURL: '',
   }
   
   componentDidUpdate( prevProps, prevState ) { 
@@ -46,9 +45,12 @@ export class App extends Component {
     this.setState({ searchQuery: query, page: 1, images: [] });
   }
 
+  handleModal = url => { 
+    this.setState({largeImageURL: url})
+  }
 
   render() {
-    const { images, loading, error } = this.state;
+    const { images, loading, error, largeImageURL } = this.state;
     
     return (
       <div>
@@ -56,7 +58,8 @@ export class App extends Component {
         {error && <p>Wrong: {error.message}</p>}
         {loading && <LoaderBall/>}
         {images.length > 0 && <ImageGallery images={images} />}
-        {images.length > 0 && !loading && <Button onClick={this.fetchImages } />}
+        {images.length > 0 && !loading && <Button onClick={this.fetchImages} />}
+        {largeImageURL && <Modal  />}
       </div>
     )
   }
