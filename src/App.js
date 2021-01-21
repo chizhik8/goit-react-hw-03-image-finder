@@ -16,7 +16,7 @@ export class App extends Component {
     error: null,
     searchQuery: '',
     page: 1,
-    largeImageURL: '',
+    largeImageURL: null,
   }
   
   componentDidUpdate( prevProps, prevState ) { 
@@ -59,7 +59,7 @@ export class App extends Component {
         {loading && <LoaderBall/>}
         {images.length > 0 && <ImageGallery images={images} />}
         {images.length > 0 && !loading && <Button onClick={this.fetchImages} />}
-        {largeImageURL && <Modal  />}
+        {largeImageURL && <Modal onClick={this.handleModal} />}
       </div>
     )
   }

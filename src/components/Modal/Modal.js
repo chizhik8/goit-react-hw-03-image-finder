@@ -1,19 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-
-export class Modal extends Component {
-
-  render() {
-    return (
+export default function Modal({ onClick }) {
+  return (
       <div className="Overlay">
         <div className="Modal">
-          <img src="" alt="" />
+          <img src="" alt="" onClick={onClick}/>
         </div>
       </div>
-    )
-  }
+  )
 }
 
-export default Modal;
 
 
