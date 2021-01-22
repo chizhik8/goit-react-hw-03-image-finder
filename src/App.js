@@ -4,9 +4,9 @@ import { Searchbar } from './components/Searchbar/Searchbar';
 import LoaderBall from './components/LoaderBall/LoaderBall';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
+import Modal from './components/Modal/Modal';
 
 import imagesApi  from './services/imagesApi';
-import Modal from './components/Modal/Modal';
 
 export class App extends Component {
 
@@ -17,6 +17,7 @@ export class App extends Component {
     searchQuery: '',
     page: 1,
     largeImageURL: null,
+    showModals: false,
   }
   
   componentDidUpdate( prevProps, prevState ) { 
@@ -26,9 +27,7 @@ export class App extends Component {
     if (prevQuery !== nextQuery) {
       this.fetchImages();
     }
-    
     window.scrollTo({top: document.documentElement.scrollHeight,behavior: 'smooth',});
-
   };
 
   fetchImages = () => { 
@@ -45,21 +44,25 @@ export class App extends Component {
     this.setState({ searchQuery: query, page: 1, images: [] });
   }
 
-  handleModal = url => { 
-    this.setState({largeImageURL: url})
+  showModals = (e) => { 
+    this.setState(prevState => ({ showModals: !prevState.showModals, largeImageURL: e.target.name}))
+  }
+
+    hideModals = () => { 
+    this.setState(prevState => ({ showModals: !prevState.showModals, largeImageURL: null}))
   }
 
   render() {
-    const { images, loading, error, largeImageURL } = this.state;
+    const { images, loading, error, largeImageURL, showModals } = this.state;
     
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchFormsSubmit}/>
         {error && <p>Wrong: {error.message}</p>}
         {loading && <LoaderBall/>}
-        {images.length > 0 && <ImageGallery images={images} />}
+        {images.length > 0 && <ImageGallery images={images} onClick={this.showModals} />}
         {images.length > 0 && !loading && <Button onClick={this.fetchImages} />}
-        {largeImageURL && <Modal onClick={this.handleModal} />}
+        {showModals && <Modal onClose={this.hideModals}><img src={largeImageURL} alt='Large format'/></Modal>}
       </div>
     )
   }

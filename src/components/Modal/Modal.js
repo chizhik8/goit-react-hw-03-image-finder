@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function Modal({ onClick }) {
-  return (
+export default class Modal extends Component {
+  componentDidMount() { window.addEventListener('keydown', this.handleKeyDown) };
+
+  componentWillUnmount() { window.removeEventListener('keydown', this.handleKeyDown) }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  }
+    
+  render() {
+    return (
       <div className="Overlay">
         <div className="Modal">
-          <img src="" alt="" onClick={onClick}/>
+          {this.props.children}
         </div>
       </div>
-  )
+    )
+  }
 }
+
+
 
 
 
